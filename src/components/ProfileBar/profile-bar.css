@@ -1,0 +1,28 @@
+/*profile-bar.css*/
+.root {
+	display: flex;
+	margin: 1em;
+	align-items: center;
+}
+
+.avatar {
+	border-radius: 50%;
+	width: 32px;
+	height: 32px;
+	margin:.5em;
+}
+
+.username {
+	color: #666;
+}
+
+.button {
+	background: #2d84cc;
+	color: #fff;
+	border: 1px solid #1f6fb1;
+	border-radius: 5px;
+	margin: 0 1em;
+	padding: 0.5em 0.75em;
+}
+
+
