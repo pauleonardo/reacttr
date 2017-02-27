@@ -1,10 +1,15 @@
 // index.jsx
-import React, { Component } from 'react'
+import React, { Component, PropTypes } from 'react'
 import uuid from 'uuid'
 
 import MessageList from '../MessageList'
 import InputText from '../InputText'
 import ProfileBar from '../ProfileBar'
+
+const propTypes = {
+	user: PropTypes.Object,
+	onLogout: PropTypes.func.isRequired
+}
 
 class Main extends Component {
 	constructor (props) {
@@ -48,11 +53,13 @@ class Main extends Component {
 		event.preventDefault()
 		let newMessage = {
 			id: uuid.v4(),
-			picture: this.props.user.photoUrl,
+			picture: this.props.user.photoURL,
 			username: this.props.user.email.split('@')[0],
 			displayName : this.props.user.displayName,
 			date: Date.now(),
-			text: event.target.text.value
+			text: event.target.text.value,
+			retweets: 0,
+			favorites: 0
 		}
 		
 		this.setState({
@@ -137,9 +144,10 @@ class Main extends Component {
 		return (
 			<div>
 				<ProfileBar 
-				picture={this.props.user.photoUrl}
+				picture={this.props.user.photoURL}
 				username={this.props.user.email.split('@')[0]}
 				onOpenText={this.handleOpenText}
+				onLogout={this.props.onLogout}
 				/>
 				{this.renderOpenText()}
 				<MessageList 
@@ -152,5 +160,7 @@ class Main extends Component {
 		)
 	}
 }
+
+Main.propTypes = propTypes
 
 export default Main

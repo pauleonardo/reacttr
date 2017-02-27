@@ -1,7 +1,21 @@
 // index.jsx
-import React, { Component } from 'react'
+import React, { PropTypes, Component } from 'react'
+import { Link } from 'react-router'
 import moment from 'moment'
 import styles from './message.css'
+
+const propTypes = {
+	onFavorite: PropTypes.func.isRequired,
+	onReplyTweet:PropTypes.func.isRequired,
+	onRetweet: PropTypes.func.isRequired,
+	username: PropTypes.string.isRequired,
+	text: PropTypes.string.isRequired,
+	picture: PropTypes.string.isRequired,
+	displayName: PropTypes.string.isRequired,
+	numRetweets: PropTypes.number.isRequired,
+	numFavorites: PropTypes.number.isRequired,
+	date: PropTypes.number.isRequired
+}
 
 class Message extends Component {
 	constructor (props){
@@ -32,14 +46,18 @@ class Message extends Component {
 
 	render () {
 		let dateFormat = moment(this.props.date).fromNow()
-
+		let userLink = `/user/${this.props.username}`
 
 		return (
 			<div className={styles.root}>
 				<div className={styles.user}>
-					<figure>
-						<img className={styles.avatar} src={this.props.picture} />
-					</figure>
+
+					<Link to={userLink}>
+						<figure>
+							<img className={styles.avatar} src={this.props.picture} />
+						</figure>
+					</Link>
+					
 					<span className={styles.displayName}>{this.props.displayName}</span>
 					<span className={styles.username}>{this.props.username}</span>
 					<span className={styles.date}>{dateFormat}</span>
@@ -71,5 +89,7 @@ class Message extends Component {
 		)
 	}
 }
+
+Message.propTypes = propTypes
 
 export default Message
